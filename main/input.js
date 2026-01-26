@@ -1,4 +1,4 @@
-function createPointer(canvas) {
+export function createPointer(canvas) {
   const state = {
     down: false,
     x: 0,
