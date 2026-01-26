@@ -4,8 +4,8 @@ const canvas = document.querySelector("canvas");
 const ctx = canvas.getContext("2d");
 
 function safetyLoader(x, y, data) {
-  if (y < 0 || data.length <= y) return "#ffffff";
-  if (x < 0 || data[y].length <= x) return "#ffffff";
+  if (y < 0 || data.length <= y) return "#111111";
+  if (x < 0 || data[y].length <= x) return "#111111";
   return data[y][x];
 }
 
