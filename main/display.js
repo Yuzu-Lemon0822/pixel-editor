@@ -16,8 +16,9 @@ export function square(col, row, color) {
 }
 
 export function display() {
+  ctx.clearRect(0, 0, basisData.width, basisData.height);
   for (let x = basisData.display_minX; x <= basisData.display_maxX; x++) {
-    for (let y = basisData.display_minY; y <= basisData.display_minY; y++) {
+    for (let y = basisData.display_minY; y <= basisData.display_maxY; y++) {
       square(x, y, safetyLoader(x, y, canvasData.canvas1.layer1))
     }
   }
