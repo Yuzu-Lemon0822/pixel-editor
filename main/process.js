@@ -8,7 +8,7 @@ function displayClipping(x, max) {
 let pointerTimer = 0;
 
 export function main() {
-  if (mode === "move") {
+  if (basisData.mode === "move") {
     if (pointer.down) {
       if (pointerTimer === 0) {
         basisData.drag_basisX = basisData.canvasX;
@@ -22,7 +22,7 @@ export function main() {
     } else {
       pointerTimer = 0;
     }
-  } else if (mode === "draw") {
+  } else if (basisData.mode === "draw") {
 
   }
 
