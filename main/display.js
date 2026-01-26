@@ -9,6 +9,30 @@ function safetyLoader(x, y, data) {
   return data[y][x];
 }
 
+function drawGrid() {
+  const s = basisData.scale;
+  ctx.strokeStyle = "#333";
+  ctx.lineWidth = 1;
+
+  ctx.beginPath();
+
+  // 縦線
+  for (let x = basisData.display_minX; x <= basisData.display_maxX + 1; x++) {
+    const px = basisData.canvasX + x * s;
+    ctx.moveTo(px, basisData.canvasY + basisData.display_minY * s);
+    ctx.lineTo(px, basisData.canvasY + (basisData.display_maxY + 1) * s);
+  }
+
+  // 横線
+  for (let y = basisData.display_minY; y <= basisData.display_maxY + 1; y++) {
+    const py = basisData.canvasY + y * s;
+    ctx.moveTo(basisData.canvasX + basisData.display_minX * s, py);
+    ctx.lineTo(basisData.canvasX + (basisData.display_maxX + 1) * s, py);
+  }
+
+  ctx.stroke();
+}
+
 export function square(col, row, color) {
   const size = basisData.scale;
   ctx.fillStyle = color;
@@ -22,4 +46,5 @@ export function display() {
       square(x, y, safetyLoader(x, y, canvasData.canvas1.layer1))
     }
   }
+  drawGrid()
 }
