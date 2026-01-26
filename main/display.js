@@ -1,4 +1,5 @@
 import { basisData, canvasData} from "./data.js";
+import { drawTemp } from "./process.js";
 
 const canvas = document.querySelector("canvas");
 const ctx = canvas.getContext("2d");
@@ -39,6 +40,14 @@ export function square(col, row, color) {
   ctx.fillRect(col * size + basisData.canvasX, row * size + basisData.canvasY, size, size);
 }
 
+function ghostDraw() {
+  ctx.globalAlpha = 0.5;
+  for (const { x, y } of drawTemp.values()) {
+    square(x, y, "#000000");
+  }
+  ctx.globalAlpha = 1.0;
+}
+
 export function display() {
   ctx.clearRect(0, 0, basisData.width, basisData.height);
   for (let x = basisData.display_minX; x <= basisData.display_maxX; x++) {
@@ -46,5 +55,6 @@ export function display() {
       square(x, y, safetyLoader(x, y, canvasData.canvas1.layer1))
     }
   }
+  ghostDraw()
   drawGrid()
 }
