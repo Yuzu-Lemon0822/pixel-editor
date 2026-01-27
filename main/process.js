@@ -9,6 +9,34 @@ let pointerTimer = 0;
 let pinchTimer = 0;
 export const drawTemp = new Map()
 
+function createLine(x1, y1, x2, y2) {
+  const samplingNum = Math.abs(x2 - x1) + Math.abs(y2- y1);
+  const dx = (x2 - x1) / samplingNum;
+  const dy = (y2 - y1) / samplingNum;
+  const pointList = []
+  let x = x1
+  let y = y1
+  let lastPoint = []
+  for (let i = 0; i <= samplingNum; i++) {
+    if (lastPoint.length === 0 || (lastPoint[0] === Math.floor(x) && lastPoint[1] === Math.floor(y) /*重複回避*/)) {
+      lastPoint = [Math.floor(x), Math.floor(y)]
+      pointList.push(lastPoint)
+    }
+    x += dx
+    y += dy
+  }
+  return pointList
+}
+
+function refineLine(lineData) {
+  const pointList = []
+  for (const point of lineData) {
+    if (pointList.length < 3) {
+
+    }
+  }
+}
+
 export function main() {
   if (pointer.pinch.active) {
     if (drawTemp.size > 0) drawTemp.clear(); // 描画中断
