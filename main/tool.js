@@ -4,8 +4,6 @@
 import { basisData } from "./data.js"
 import { pointer } from "./input.js"
 
-
-
 function main() {
-
+  
 }

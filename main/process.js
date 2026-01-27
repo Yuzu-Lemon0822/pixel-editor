@@ -61,7 +61,7 @@ export function main() {
     }
 
     const newScale = Math.max(
-      2,
+      0.2,
       basisData.drag_basisScale +
         (pointer.pinch.dist - pointer.pinch.startDist) / 30
     );
