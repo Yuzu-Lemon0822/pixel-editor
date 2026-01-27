@@ -1,11 +1,11 @@
 export let basisData = {
   width: window.innerWidth, //画面のサイズ(px)
   height: window.innerHeight,
-  canvasWidth: 10, //ドット絵キャンバス自体のサイズ(マス目)
-  canvasHeight: 10,
+  canvasWidth: 64, //ドット絵キャンバス自体のサイズ(マス目)
+  canvasHeight: 64,
   canvasX: 0, //ドット絵キャンバスの左上の位置
   canvasY: 0,
-  scale: 30, //ドット絵キャンバスのマス目のサイズ(マス目->pxの変換用)
+  scale: 15, //ドット絵キャンバスのマス目のサイズ(マス目->pxの変換用)
   virtualOriginX: 0, //ドラッグした時の仮想原点。ドラッグやり始めに決定。
   virtualOriginY: 0,
   drag_basisX: 0, //ドラッグし始めのcanvasX,Y
@@ -15,7 +15,7 @@ export let basisData = {
   display_maxX: 0,
   display_maxY: 0,
 
-  mode: "move" //move,draw
+  mode: "draw" //move,draw
 }
 
 function createCanvas(w, h, color) {
