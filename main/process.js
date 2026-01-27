@@ -1,3 +1,6 @@
+//===== main/process.js =====//
+//エディタ自体の処理を担います。
+
 import { basisData, canvasData } from "./data.js"
 import { pointer } from "./input.js"
 
@@ -48,6 +51,8 @@ function refineLine(lineData) {
 }
 
 export function main() {
+  if (pointer.x < 60 || pointer.y > basisData.height - 80) return;
+
   if (pointer.pinch.active) {
     if (drawTemp.size > 0) drawTemp.clear();
 

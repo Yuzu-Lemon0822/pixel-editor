@@ -1,3 +1,6 @@
+//===== maon/display.js =====//
+//描画のみを担います。
+
 import { basisData, canvasData} from "./data.js";
 import { drawTemp } from "./process.js";
 

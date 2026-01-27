@@ -1,4 +1,6 @@
-// main/input.js
+//===== main/input.js =====//
+//クリック、タッチ判定を担います。
+
 const canvas = document.getElementById("canvas");
 
 const pointer = {

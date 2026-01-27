@@ -1,3 +1,6 @@
+//===== main/data.js =====//
+//各ファイルで使うデータのほとんどをここに変数として保存しています。
+
 export let basisData = {
   width: window.innerWidth, //画面のサイズ(px)
   height: window.innerHeight,
