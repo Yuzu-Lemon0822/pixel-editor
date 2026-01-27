@@ -6,9 +6,26 @@ function displayClipping(x, max) {
 }
 
 let pointerTimer = 0;
+let pinchTimer = 0;
 export const drawTemp = new Map()
 
 export function main() {
+  if (pointer.pinch.active) {
+    if (drawTemp.size > 0) drawTemp.clear(); //描画を中断
+    if (pinchTimer === 0) {
+      basisData.drag_basisX = basisData.canvasX;
+      basisData.drag_basisY = basisData.canvasY;
+      basisData.drag_basisScale = basisData.scale;
+    }
+    basisData.canvasX = basisData.drag_basisX + (pointer.pinch.centerX - pointer.pinch.startCenterX);
+    basisData.canvasY = basisData.drag_basisY + (pointer.pinch.centerY - pointer.pinch.startCenterY);
+    basisData.scale = basisData.drag_basisScale + (pointer.pinch.dist - pointer.pinch.startDist) / 30
+    pinchTimer++
+    return; //早期処理中断
+  } else {
+    pinchTimer = 0;
+  }
+
   if (pointer.down) {
     pointerTimer++
   } else {

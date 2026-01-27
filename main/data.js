@@ -8,8 +8,9 @@ export let basisData = {
   scale: 15, //ドット絵キャンバスのマス目のサイズ(マス目->pxの変換用)
   virtualOriginX: 0, //ドラッグした時の仮想原点。ドラッグやり始めに決定。
   virtualOriginY: 0,
-  drag_basisX: 0, //ドラッグし始めのcanvasX,Y
+  drag_basisX: 0, //ドラッグし始めのcanvasX,Y,scale
   drag_basisY: 0,
+  drag_basisScale: 15,
   display_minX: 0, //canvasに映す範囲
   display_minY: 0,
   display_maxX: 0,
