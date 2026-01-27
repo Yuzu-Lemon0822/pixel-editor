@@ -37,7 +37,7 @@ function drawGrid() {
 export function square(col, row, color) {
   const size = basisData.scale;
   ctx.fillStyle = color;
-  ctx.fillRect(col * size + basisData.canvasX, row * size + basisData.canvasY, size, size);
+  ctx.fillRect(col * size + basisData.canvasX, row * size + basisData.canvasY, size + 0.1, size + 0.1);
 }
 
 function ghostDraw() {

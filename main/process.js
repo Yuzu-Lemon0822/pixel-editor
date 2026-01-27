@@ -49,16 +49,14 @@ function refineLine(lineData) {
 
 export function main() {
   if (pointer.pinch.active) {
-    if (drawTemp.size > 0) drawTemp.clear(); // 描画中断
+    if (drawTemp.size > 0) drawTemp.clear();
 
     if (pinchTimer === 0) {
-      // ピンチ開始時の基準を保存
       basisData.drag_basisX = basisData.canvasX;
       basisData.drag_basisY = basisData.canvasY;
       basisData.drag_basisScale = basisData.scale;
     }
 
-    // ===== scale 計算 =====
     const newScale = Math.max(
       2,
       basisData.drag_basisScale +
@@ -67,7 +65,6 @@ export function main() {
 
     const zoom = newScale / basisData.drag_basisScale;
 
-    // ===== pinchCenter 基準ズーム =====
     basisData.canvasX =
       pointer.pinch.centerX -
       (pointer.pinch.startCenterX - basisData.drag_basisX) * zoom;
