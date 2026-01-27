@@ -41,7 +41,6 @@ export function main() {
     basisData.scale = newScale;
 
     pinchTimer++;
-    return; // 早期中断（draw / move を通さない）
   } else {
     pinchTimer = 0;
 

@@ -55,6 +55,6 @@ export function display() {
       square(x, y, safetyLoader(x, y, canvasData.canvas1.layer1))
     }
   }
-  if (basisData.scale > 10) ghostDraw()
-  drawGrid()
+  ghostDraw()
+  if (basisData.scale > 10) drawGrid()
 }
