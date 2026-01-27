@@ -4,8 +4,8 @@
 export let basisData = {
   width: window.innerWidth, //画面のサイズ(px)
   height: window.innerHeight,
-  canvasWidth: 1024, //ドット絵キャンバス自体のサイズ(マス目)
-  canvasHeight: 1024,
+  canvasWidth: 128, //ドット絵キャンバス自体のサイズ(マス目)
+  canvasHeight: 128,
   canvasX: 0, //ドット絵キャンバスの左上の位置
   canvasY: 0,
   scale: 15, //ドット絵キャンバスのマス目のサイズ(マス目->pxの変換用)
@@ -18,7 +18,8 @@ export let basisData = {
   display_minY: 0,
   display_maxX: 0,
   display_maxY: 0,
-  mode: "draw", //move,draw,spoit
+  currentColor: "#000000",
+  mode: "draw", //move,draw,spoitなど
 }
 
 function createCanvas(w, h, color) {
@@ -29,11 +30,11 @@ function createCanvas(w, h, color) {
 
 export let canvasData = {
   canvas1: {
-    layer1: createCanvas(64, 64, "#ffffff")
+    layer1: createCanvas(basisData.canvasWidth, basisData.canvasHeight, "#ffffff")
   }
 }
 
-export let palletData = [
+export let palletteData = [
   "#000000",
   "#555555",
   "#aaaaaa",
