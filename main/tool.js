@@ -4,10 +4,8 @@
 import { basisData } from "./data.js"
 import { pointer } from "./input.js"
 
+
+
 function main() {
-  if (pointer.x < 80) {//ツールバー
 
-  } else if (pointer.y > basisData.height - 80) {//パレット
-
-  }
 }

@@ -51,8 +51,6 @@ function refineLine(lineData) {
 }
 
 export function main() {
-  if (pointer.x < 60 || pointer.y > basisData.height - 80) return;
-
   if (pointer.pinch.active) {
     if (drawTemp.size > 0) drawTemp.clear();
 
