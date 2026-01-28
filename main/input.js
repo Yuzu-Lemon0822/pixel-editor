@@ -1,7 +1,7 @@
 //===== main/input.js =====//
 //クリック、タッチ判定を担います。
 
-const canvas = document.getElementById("canvas");
+const canvas = document.getElementById("editorCanvas");
 
 const pointer = {
   down: false,
