@@ -39,8 +39,8 @@ export let windowData = {
     open: false,
     x: 0,
     y: 0,
-    width: 130, //今は固定
-    highet: 100,
+    width: 260, //今は固定
+    highet: 200,//30x30のカラーを8x6配置。+縦横20
     palette_y: 0 //パレット内部のスクロール部分。floor(palette_y) ~ floor(palette_y + 7)の列(8x6~7)を描画する。
   },
   picker: {
