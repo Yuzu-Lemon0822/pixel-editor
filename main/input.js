@@ -2,6 +2,7 @@
 //クリック、タッチ判定を担います。
 
 const canvas = document.getElementById("editorCanvas");
+const paletteCanvas = document.getElementById("paletteCanvas");
 
 const pointer = {
   down: false,

@@ -34,7 +34,26 @@ export let canvasData = {
   }
 }
 
-export let palletteData = [
+export let windowData = {
+  palette: {
+    open: false,
+    x: 0,
+    y: 0,
+    width: 130, //今は固定
+    highet: 100,
+    palette_y: 0 //パレット内部のスクロール部分。floor(palette_y) ~ floor(palette_y + 7)の列(8x6~7)を描画する。
+  },
+  picker: {
+    open: false,
+    x: 0,
+    y: 0,
+    red: 0,
+    green: 0,
+    blue: 0,
+  }
+} 
+
+export let paletteData = [
   "#000000",
   "#555555",
   "#aaaaaa",

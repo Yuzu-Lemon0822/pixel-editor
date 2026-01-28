@@ -1,18 +1,13 @@
-import { basisData } from "./main/data.js";
+import { basisData, windowData } from "./main/data.js";
 import { main as processMain } from "./main/process.js";
 import { display } from "./main/display.js";
 
-const canvas = document.getElementById("editorCanvas");
-
-function resize() {
-  basisData.width = window.innerWidth;
-  basisData.height = window.innerHeight;
-
-  canvas.width = window.innerWidth;   // ← これが重要
-  canvas.height = window.innerHeight; // ← これも重要
+function resize(canvas, width, height) {
+  canvas.width = width;   // ← これが重要
+  canvas.height = height; // ← これも重要
 }
 window.addEventListener("resize", resize);
-resize();
+resize(document.getElementById("editorCanvas"), window.innerWidth, window.innerHeight);
 
 function loop() {
   processMain();
