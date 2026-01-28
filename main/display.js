@@ -4,7 +4,7 @@
 import { basisData, canvasData} from "./data.js";
 import { drawTemp } from "./process.js";
 
-const canvas = document.querySelector("Canvas");
+const canvas = document.querySelector("#editorCanvas");
 const ctx = canvas.getContext("2d");
 
 function safetyLoader(x, y, data) {
