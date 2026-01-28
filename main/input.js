@@ -1,13 +1,16 @@
 //===== main/input.js =====//
-//クリック、タッチ判定を担います。
-
-const canvas = document.getElementById("editorCanvas");
-const paletteCanvas = document.getElementById("paletteCanvas");
+// Canvas Input Manager（拡張前提）
 
 const pointer = {
   down: false,
+
   x: 0,
   y: 0,
+
+  grobalX: 0,
+  grobalY: 0,
+
+  target: null,
 
   pinch: {
     active: false,
@@ -21,93 +24,139 @@ const pointer = {
   }
 };
 
-function setPos(clientX, clientY) {
-  const rect = canvas.getBoundingClientRect();
-  pointer.x = clientX - rect.left;
-  pointer.y = clientY - rect.top;
+// ===============================
+// Canvas Layer Registry
+// ===============================
+const layers = [];
+
+function registerCanvas(canvas, options = {}) {
+  layers.push({
+    canvas,
+    priority: options.priority ?? 0,
+
+    onPointerDown: options.onPointerDown,
+    onPointerMove: options.onPointerMove,
+    onPointerUp: options.onPointerUp,
+
+    get rect() {
+      return canvas.getBoundingClientRect();
+    }
+  });
+
+  // priority 高い順（＝入力的に上）
+  layers.sort((a, b) => b.priority - a.priority);
 }
 
-function getDist(t1, t2) {
-  return Math.hypot(
-    t1.clientX - t2.clientX,
-    t1.clientY - t2.clientY
-  );
+// ===============================
+// Hit Test
+// ===============================
+function hitTest(clientX, clientY) {
+  for (const layer of layers) {
+    const r = layer.rect;
+    if (
+      clientX >= r.left &&
+      clientX <= r.right &&
+      clientY >= r.top &&
+      clientY <= r.bottom
+    ) {
+      return layer;
+    }
+  }
+  return null;
 }
 
-function getCenter(t1, t2) {
-  return {
-    x: (t1.clientX + t2.clientX) / 2,
-    y: (t1.clientY + t2.clientY) / 2,
-  };
+function setLocalPos(layer, clientX, clientY) {
+  const r = layer.rect;
+  pointer.x = clientX - r.left;
+  pointer.y = clientY - r.top;
 }
 
-/* ===== Mouse ===== */
-canvas.addEventListener("mousedown", e => {
+function setGrobalPos(e) {
+  pointer.grobalX = e.clientX;
+  pointer.grobalY = e.clientY;
+}
+
+// ===============================
+// Pointer Events
+// ===============================
+window.addEventListener("pointerdown", e => {
+  setGrobalPos(e);
+
+  const layer = hitTest(e.clientX, e.clientY);
+  if (!layer) return;
+
   pointer.down = true;
-  setPos(e.clientX, e.clientY);
+  pointer.target = layer;
+  setLocalPos(layer, e.clientX, e.clientY);
+
+  layer.onPointerDown?.(pointer, e);
 });
 
-canvas.addEventListener("mousemove", e => {
-  if (!pointer.down) return;
-  setPos(e.clientX, e.clientY);
+window.addEventListener("pointermove", e => {
+  setGrobalPos(e);
+
+  if (!pointer.down || !pointer.target) return;
+
+  setLocalPos(pointer.target, e.clientX, e.clientY);
+  pointer.target.onPointerMove?.(pointer, e);
 });
 
-window.addEventListener("mouseup", () => {
-  pointer.down = false;
-});
+window.addEventListener("pointerup", e => {
+  setGrobalPos(e);
 
-/* ===== Touch ===== */
-canvas.addEventListener("touchstart", e => {
-  e.preventDefault();
-
-  if (e.touches.length === 1) {
-    pointer.down = true;
-    const t = e.touches[0];
-    setPos(t.clientX, t.clientY);
+  if (pointer.target) {
+    pointer.target.onPointerUp?.(pointer, e);
   }
 
+  pointer.down = false;
+  pointer.target = null;
+});
+
+// ===============================
+// Touch Pinch (optional)
+// ===============================
+window.addEventListener("touchstart", e => {
   if (e.touches.length === 2) {
-    pointer.down = false; // ← draw無効化
+    pointer.down = false;
     pointer.pinch.active = true;
 
     const [t1, t2] = e.touches;
-    const c = getCenter(t1, t2);
+    const cx = (t1.clientX + t2.clientX) / 2;
+    const cy = (t1.clientY + t2.clientY) / 2;
 
-    pointer.pinch.startCenterX = c.x;
-    pointer.pinch.startCenterY = c.y;
-    pointer.pinch.centerX = c.x;
-    pointer.pinch.centerY = c.y;
+    pointer.pinch.startCenterX = cx;
+    pointer.pinch.startCenterY = cy;
+    pointer.pinch.centerX = cx;
+    pointer.pinch.centerY = cy;
 
-    pointer.pinch.startDist = getDist(t1, t2);
+    pointer.pinch.startDist = Math.hypot(
+      t1.clientX - t2.clientX,
+      t1.clientY - t2.clientY
+    );
     pointer.pinch.dist = pointer.pinch.startDist;
   }
 }, { passive: false });
 
-canvas.addEventListener("touchmove", e => {
-  e.preventDefault();
+window.addEventListener("touchmove", e => {
+  if (!pointer.pinch.active || e.touches.length !== 2) return;
 
-  if (e.touches.length === 1 && !pointer.pinch.active) {
-    const t = e.touches[0];
-    setPos(t.clientX, t.clientY);
-  }
-
-  if (e.touches.length === 2) {
-    const [t1, t2] = e.touches;
-    const c = getCenter(t1, t2);
-
-    pointer.pinch.centerX = c.x;
-    pointer.pinch.centerY = c.y;
-    pointer.pinch.dist = getDist(t1, t2);
-  }
+  const [t1, t2] = e.touches;
+  pointer.pinch.centerX = (t1.clientX + t2.clientX) / 2;
+  pointer.pinch.centerY = (t1.clientY + t2.clientY) / 2;
+  pointer.pinch.dist = Math.hypot(
+    t1.clientX - t2.clientX,
+    t1.clientY - t2.clientY
+  );
 }, { passive: false });
 
 window.addEventListener("touchend", e => {
   if (e.touches.length < 2) {
     pointer.pinch.active = false;
   }
-  if (e.touches.length === 0) {
-    pointer.down = false;
-  }
 });
 
-export { pointer };
+// ===============================
+export {
+  pointer,
+  registerCanvas
+};

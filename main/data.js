@@ -1,5 +1,20 @@
 //===== main/data.js =====//
 //各ファイルで使うデータのほとんどをここに変数として保存しています。
+import { registerCanvas } from "./main/input.js";
+
+registerCanvas(editorCanvas, {
+  priority: 0,
+  onPointerDown(pointer) {
+    // editor input
+  }
+});
+registerCanvas(paletteCanvas, {
+  priority: 10,
+  onPointerDown(pointer) {
+    // palette input
+  }
+});
+
 
 export let basisData = {
   width: window.innerWidth, //画面のサイズ(px)
