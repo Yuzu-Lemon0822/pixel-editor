@@ -7,7 +7,8 @@ function resize(canvas, width, height) {
   canvas.height = height; // ← これも重要
 }
 window.addEventListener("resize", resize);
-resize(document.getElementById("editorCanvas"), window.innerWidth, window.innerHeight);
+resize(document.getElementById("editorCanvas"), basisData.width, basisData.height);
+resize(document.getElementById("paletteCanvas"), windowData.palette.width, windowData.palette.highet);
 
 function loop() {
   processMain();
