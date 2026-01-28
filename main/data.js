@@ -4,8 +4,8 @@
 export let basisData = {
   width: window.innerWidth, //画面のサイズ(px)
   height: window.innerHeight,
-  canvasWidth: 128, //ドット絵キャンバス自体のサイズ(マス目)
-  canvasHeight: 128,
+  canvasWidth: 64, //ドット絵キャンバス自体のサイズ(マス目)
+  canvasHeight: 64,
   canvasX: 0, //ドット絵キャンバスの左上の位置
   canvasY: 0,
   scale: 15, //ドット絵キャンバスのマス目のサイズ(マス目->pxの変換用)
