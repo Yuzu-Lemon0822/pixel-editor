@@ -2,7 +2,7 @@ import { basisData } from "./main/data.js";
 import { main as processMain } from "./main/process.js";
 import { display } from "./main/display.js";
 
-const canvas = document.getElementById("canvas");
+const canvas = document.getElementById("#editorCanvas");
 
 function resize() {
   basisData.width = window.innerWidth;
