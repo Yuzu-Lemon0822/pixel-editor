@@ -63,7 +63,7 @@ export function main() {
     const newScale = Math.max(
       0.2,
       basisData.drag_basisScale +
-        (pointer.pinch.dist - pointer.pinch.startDist) / 50
+        (pointer.pinch.dist - pointer.pinch.startDist) / 30
     );
 
     const zoom = newScale / basisData.drag_basisScale;

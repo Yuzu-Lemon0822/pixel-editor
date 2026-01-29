@@ -7,8 +7,8 @@ const pointer = {
   x: 0,
   y: 0,
 
-  grobalX: 0,
-  grobalY: 0,
+  globalX: 0,
+  globalY: 0,
 
   target: null,
 
@@ -31,16 +31,14 @@ const layers = [];
 
 function registerCanvas(canvas, options = {}) {
   layers.push({
-    canvas,
+    canvas: canvas,
+    elem: document.getElementById(canvas),
     priority: options.priority ?? 0,
-
+/*
     onPointerDown: options.onPointerDown,
     onPointerMove: options.onPointerMove,
     onPointerUp: options.onPointerUp,
-
-    get rect() {
-      return canvas.getBoundingClientRect();
-    }
+*/
   });
 
   // priority 高い順（＝入力的に上）
@@ -52,7 +50,7 @@ function registerCanvas(canvas, options = {}) {
 // ===============================
 function hitTest(clientX, clientY) {
   for (const layer of layers) {
-    const r = layer.rect;
+    const r = layer.elem.getBoundingClientRect(); 
     if (
       clientX >= r.left &&
       clientX <= r.right &&
@@ -66,14 +64,14 @@ function hitTest(clientX, clientY) {
 }
 
 function setLocalPos(layer, clientX, clientY) {
-  const r = layer.rect;
+  const r = layer.elem.getBoundingClientRect();
   pointer.x = clientX - r.left;
   pointer.y = clientY - r.top;
 }
 
 function setGrobalPos(e) {
-  pointer.grobalX = e.clientX;
-  pointer.grobalY = e.clientY;
+  pointer.globalX = e.clientX;
+  pointer.globalY = e.clientY;
 }
 
 // ===============================

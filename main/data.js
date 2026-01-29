@@ -2,17 +2,11 @@
 //各ファイルで使うデータのほとんどをここに変数として保存しています。
 import { registerCanvas } from "./main/input.js";
 
-registerCanvas(editorCanvas, {
+registerCanvas("editorCanvas", {
   priority: 0,
-  onPointerDown(pointer) {
-    // editor input
-  }
 });
-registerCanvas(paletteCanvas, {
+registerCanvas("paletteCanvas", {
   priority: 10,
-  onPointerDown(pointer) {
-    // palette input
-  }
 });
 
 
@@ -55,7 +49,7 @@ export let windowData = {
     x: 0,
     y: 0,
     width: 260, //今は固定
-    highet: 200,//30x30のカラーを8x6配置。+縦横20
+    highet: 200, //30x30のカラーを8x6配置。+縦横20
     palette_y: 0 //パレット内部のスクロール部分。floor(palette_y) ~ floor(palette_y + 7)の列(8x6~7)を描画する。
   },
   picker: {
